@@ -60,9 +60,9 @@ function App() {
     <>
       <h1 style={{ fontFamily: "cursive" }}>Select Location</h1>
       <div className="location-wrap">
-        <Selection data={countries} name="country" onChange={()=>handleSelection(event, setCountrySelected)} isvisible={true}/>
-        <Selection data={states} name="state" onChange={()=>handleSelection(event, setStateSelected)} isvisible={countrySelected} />
-        <Selection data={cities} name="city" onChange={()=>handleSelection(event, setCitySelected)}  isvisible={stateSelected} />
+        <Selection data={countries} name="country" current={countrySelected} onChange={()=>handleSelection(event, setCountrySelected)} isvisible={true}/>
+        <Selection data={states} name="state" current={stateSelected} onChange={()=>handleSelection(event, setStateSelected)} isvisible={countrySelected} />
+        <Selection data={cities} name="city" current={citySelected} onChange={()=>handleSelection(event, setCitySelected)}  isvisible={stateSelected} />
       </div>
       {citySelected && (
         <h2 className="result">

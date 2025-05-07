@@ -25,31 +25,37 @@ function App() {
   }
 
   useEffect(() => {
-    performApiCall("https://crio-location-selector.onrender.com/countries", setCountries);
+    performApiCall(
+      "https://crio-location-selector.onrender.com/countries",
+      setCountries
+    );
   }, []);
 
   useEffect(() => {
-    if(countrySelected){
-       performApiCall( `https://crio-location-selector.onrender.com/country=${countrySelected}/states`, setStates);
-       setStateSelected(""); 
-       setCities([]);
-       setCitySelected("");
-
+    if (countrySelected) {
+      performApiCall(
+        `https://crio-location-selector.onrender.com/country=${countrySelected}/states`,
+        setStates
+      );
+      setStateSelected("");
+      setCities([]);
+      setCitySelected("");
     }
-   
+
     // console.log("from state");
   }, [countrySelected]);
 
   useEffect(() => {
-    if( countrySelected && stateSelected){
-      performApiCall(`https://crio-location-selector.onrender.com/country=${countrySelected}/state=${stateSelected}/cities`, setCities);
+    if (countrySelected && stateSelected) {
+      performApiCall(
+        `https://crio-location-selector.onrender.com/country=${countrySelected}/state=${stateSelected}/cities`,
+        setCities
+      );
       setCitySelected("");
     }
-   
+
     // console.log("from countries");
   }, [countrySelected, stateSelected]);
-
- 
 
   function handleSelection(event, setSelection) {
     console.log(event.target.value);
@@ -60,9 +66,27 @@ function App() {
     <>
       <h1 style={{ fontFamily: "cursive" }}>Select Location</h1>
       <div className="location-wrap">
-        <Selection data={countries} name="country" current={countrySelected} onChange={()=>handleSelection(event, setCountrySelected)} isvisible={true}/>
-        <Selection data={states} name="state" current={stateSelected} onChange={()=>handleSelection(event, setStateSelected)} isvisible={countrySelected} />
-        <Selection data={cities} name="city" current={citySelected} onChange={()=>handleSelection(event, setCitySelected)}  isvisible={stateSelected} />
+        <Selection
+          data={countries}
+          name="country"
+          current={countrySelected}
+          handlerfun={(event) => handleSelection(event, setCountrySelected)}
+          isvisible={true}
+        />
+        <Selection
+          data={states}
+          name="state"
+          current={stateSelected}
+          handlerfun={(event) => handleSelection(event, setStateSelected)}
+          isvisible={countrySelected}
+        />
+        <Selection
+          data={cities}
+          name="city"
+          current={citySelected}
+          handlerfun={(event) => handleSelection(event, setCitySelected)}
+          isvisible={stateSelected}
+        />
       </div>
       {citySelected && (
         <h2 className="result">
@@ -73,7 +97,6 @@ function App() {
           </span>
         </h2>
       )}
-
     </>
   );
 }
